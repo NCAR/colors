@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "colors"
+version = "2.0.0"
+description = "palettes, color scales, and support"
+authors = []
+requires-python = ">=3.11"
+keywords = ["colors", "palettes", "color scales", "atmospheric science", "html"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Multimedia :: Graphics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+# legend rendering needs Pillow, which brings native libraries a serverless deployment
+# does not want unless it is actually drawing images
+legend = [
+    "pillow>=11.1,<13",
+]
+all = [
+    "colors[legend]",
+]
+
+[project.scripts]
+colors-hex = "colors.cli:cli_hex_list_from_palette"
+colors-swatches = "colors.cli:cli_palette_swatches"
+colors-legend = "colors.cli:cli_legend"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["colors*"]
+
+[tool.setuptools.package-data]
+"colors.resources" = ["palettes.yaml"]
+"colors.resources.fonts" = ["*.ttf"]

@@ -1,7 +1,7 @@
 {
-  "name": "colors",
+  "name": "@ncar/colors",
   "version": "2.0.0",
-  "description": "Color palette package",
+  "description": "A lightweight library supporting palettes and color scales, with a matching Python library (ncarcolors).",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {

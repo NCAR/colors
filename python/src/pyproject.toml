@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "colors"
 version = "2.0.0"
-description = "palettes, color scales, and support"
+description = "A lightweight library supporting palettes and color scales, with a matching typescript library (@ncar/colors)"
 authors = []
 requires-python = ">=3.11"
 keywords = ["colors", "palettes", "color scales", "atmospheric science", "html"]
@@ -20,6 +20,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Operating System :: OS Independent",
 ]
 dependencies = [

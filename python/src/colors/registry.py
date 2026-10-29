@@ -5,7 +5,6 @@ importing this package costs nothing until a palette is actually asked for.
 """
 import logging
 import pkgutil
-import warnings
 from collections.abc import Iterator, Mapping
 
 from . import convert
@@ -194,16 +193,3 @@ class PaletteRegistry(Mapping):
 
 # the shared registry every Palette consults
 PALETTES: PaletteRegistry = PaletteRegistry()
-
-
-def inject_palettes(cls: type) -> type:
-    """
-    Point a class at the shared palette registry
-    :param cls: The class being decorated
-    :return: The decorated class, with its PALETTES attribute set to the shared registry
-    :deprecated: Palette definitions now load on demand, so nothing needs injecting
-    """
-    warnings.warn('colors.inject_palettes is deprecated; palette definitions now load on demand',
-                  DeprecationWarning, stacklevel=2)
-    cls.PALETTES = PALETTES
-    return cls

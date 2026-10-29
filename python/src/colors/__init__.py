@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from .colormap import ColorMap, color_at
 from .palette import Palette
-from .registry import PALETTES, inject_palettes, palette_names
+from .registry import PALETTES, palette_names
 from .scale import Scale
 
 # declare the lazily resolved names for linters and type checkers. this block never runs, so
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 
 __all__ = ['ColorMap', 'Legend', 'PALETTES', 'Palette', 'Scale', 'ScaleRenderer',
-           'color_at', 'inject_palettes', 'palette_names', 'render_legend', '__version__']
+           'color_at', 'palette_names', 'render_legend', '__version__']
 
 
 # names that need Pillow, resolved by __getattr__ only when a caller actually asks for them

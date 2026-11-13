@@ -17,7 +17,17 @@ Palette definitions are read from the packaged resource on first use, not at imp
 
 ## How To Install
 
-`pip install --upgrade --extra-index-url http://nexus.rap.ucar.edu:8081/repository/pypi-all/simple --trusted-host nexus.rap.ucar.edu colors`
+```bash
+pip install --upgrade colors                # palettes and color mapping (depends only on pyyaml)
+pip install --upgrade 'colors[legend]'      # also installs Pillow for legend graphics, colors-legend and colors-swatches
+```
+
+Confirm it worked:
+
+```bash
+colors-hex --version
+colors-hex -p viridis -n 4
+```
 
 ## How To Build
 

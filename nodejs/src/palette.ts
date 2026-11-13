@@ -1,21 +1,14 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { parse, stringify } from 'yaml';
+import { stringify } from 'yaml';
+import palettesData from './resources/palettes.json';
 
 export type ColorFormat = 'hex' | 'int' | 'float';
 
 /**
- * Load the palette definitions from the YAML resource, falling back to the JSON copy.
+ * Load the palette definitions from the bundled JSON resource.
  * Upper and lower case variants of every name are added, like the Python package does.
  */
 function loadPalettes(): Record<string, string[]> {
-  const dir = path.join(__dirname, 'resources');
-  let data: Record<string, string[]>;
-  try {
-    data = parse(fs.readFileSync(path.join(dir, 'palettes.yaml'), 'utf-8'));
-  } catch {
-    data = JSON.parse(fs.readFileSync(path.join(dir, 'palettes.json'), 'utf-8'));
-  }
+  const data: Record<string, string[]> = { ...palettesData };
   for (const key of Object.keys(data)) {
     const upper = key.toUpperCase();
     const lower = key.toLowerCase();
@@ -164,6 +157,36 @@ export class Palette {
     palette.name = this.name;
     palette.colorValues = stack(channels);
     return palette;
+  }
+
+
+  /**
+   * Get a linear-gradient for a CSS background-image
+   * @returns A string that can be used as the background-image value in CSS
+   */
+  getLinearGradient(): string {
+    /* make sure we have colors in the palette */
+    if (this.colorValues === null)
+      return '';
+
+    /* width of each segment as a percentage */
+    const width: number = 100 / this.colorValues.length;
+
+    /* empty string to store the list of rgb values */
+    let colors = '';
+
+    /* position on the gradient as a percentage */
+    let position: number = 0;
+    for (let color of this.colorValues)
+    {
+      /* add this color to the linear gradient */
+      colors += ', rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ') ' + position + '% ' + (position+width) + '%';
+
+      /* increment the width */
+      position += width;
+    }
+
+    return 'linear-gradient(90deg' + colors + ')';
   }
 }
 
